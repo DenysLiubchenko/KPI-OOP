@@ -1,21 +1,10 @@
 ﻿public class GameAccount
 {
-    private string UserName;
-    private uint CurrentRating;
-    private uint GamesCount;
-    List<Game> gamesList;
-    public string getUserName()
-    {
-        return UserName;
-    }
-    public uint getCurrentRating()
-    {
-        return CurrentRating;
-    }
-    public uint getGamesCount()
-    {
-        return GamesCount;
-    }
+    public string UserName { get; }
+    public uint CurrentRating { get; set; }
+    public uint GamesCount { get; set; }
+    private List<Game> gamesList;
+    
     public GameAccount(string name)
     {
         UserName = name;
@@ -25,7 +14,6 @@
     }
     public void WinGame(GameAccount opponent, uint rating)
     {
-        if (rating < 0) throw new ArgumentOutOfRangeException("Rating can't be negative");
         Game game = new Game(this, opponent, rating);
         opponent.LoseGame(this, rating, game);
         gamesList.Add(game);
@@ -47,22 +35,22 @@
     }
     public List<Game> GetStats()
     {
-        Console.WriteLine(this.getUserName() + " Status:\nCurrent Rating - " + this.getCurrentRating() + "\tGames Played - " + this.getGamesCount());
+        Console.WriteLine(this.UserName + " Status:\nCurrent Rating - " + this.CurrentRating + "\tGames Played - " + this.GamesCount);
         foreach (Game game in gamesList)
         {
             Console.Write("Winner - ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(game.getWinner().getUserName());
+            Console.Write(game.Winner.UserName);
             Console.ResetColor();
             Console.Write("\tLoser - ");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(game.getLoser().getUserName());
+            Console.Write(game.Loser.UserName);
             Console.ResetColor();
             Console.Write("\tScore - ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write(game.getScore());
+            Console.Write(game.Score);
             Console.ResetColor();
-            Console.WriteLine("\tID - " + game.getId());
+            Console.WriteLine("\tID - " + game.GameId);
         }
         return gamesList;
     }
@@ -70,33 +58,17 @@
 
 public class Game
 {
-    private GameAccount winner;
-    private GameAccount loser;
-    private uint score;
+    public GameAccount Winner { get; }
+    public GameAccount Loser { get; }
+    public uint Score { get; }
     private static uint id = 0;
-    private uint gameId;
-    public Game(GameAccount winner, GameAccount loser, uint score)
+    public uint GameId { get; }
+public Game(GameAccount winner, GameAccount loser, uint score)
     {
-        this.winner = winner;
-        this.loser = loser;
-        this.score = score;
-        this.gameId = id++;
-    }
-    public GameAccount getWinner()
-    {
-        return winner;
-    }
-    public GameAccount getLoser()
-    {
-        return loser;
-    }
-    public uint getScore()
-    {
-        return score;
-    }
-    public uint getId()
-    {
-        return gameId;
+        this.Winner = winner;
+        this.Loser = loser;
+        this.Score = score;
+        this.GameId = id++;
     }
 }
 

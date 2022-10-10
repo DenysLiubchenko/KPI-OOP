@@ -1,0 +1,15 @@
+D:\Laba\Projects\KPI_OOP\Lab1\bin\Debug\net6.0\Lab1.exe
+D:\Laba\Projects\KPI_OOP\Lab1\bin\Debug\net6.0\Lab1.deps.json
+D:\Laba\Projects\KPI_OOP\Lab1\bin\Debug\net6.0\Lab1.runtimeconfig.json
+D:\Laba\Projects\KPI_OOP\Lab1\bin\Debug\net6.0\Lab1.dll
+D:\Laba\Projects\KPI_OOP\Lab1\bin\Debug\net6.0\ref\Lab1.dll
+D:\Laba\Projects\KPI_OOP\Lab1\bin\Debug\net6.0\Lab1.pdb
+D:\Laba\Projects\KPI_OOP\Lab1\obj\Debug\net6.0\Lab1.csproj.AssemblyReference.cache
+D:\Laba\Projects\KPI_OOP\Lab1\obj\Debug\net6.0\Lab1.GeneratedMSBuildEditorConfig.editorconfig
+D:\Laba\Projects\KPI_OOP\Lab1\obj\Debug\net6.0\Lab1.AssemblyInfoInputs.cache
+D:\Laba\Projects\KPI_OOP\Lab1\obj\Debug\net6.0\Lab1.AssemblyInfo.cs
+D:\Laba\Projects\KPI_OOP\Lab1\obj\Debug\net6.0\Lab1.csproj.CoreCompileInputs.cache
+D:\Laba\Projects\KPI_OOP\Lab1\obj\Debug\net6.0\Lab1.dll
+D:\Laba\Projects\KPI_OOP\Lab1\obj\Debug\net6.0\ref\Lab1.dll
+D:\Laba\Projects\KPI_OOP\Lab1\obj\Debug\net6.0\Lab1.pdb
+D:\Laba\Projects\KPI_OOP\Lab1\obj\Debug\net6.0\Lab1.genruntimeconfig.cache
