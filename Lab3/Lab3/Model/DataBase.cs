@@ -8,17 +8,15 @@ namespace Lab3.Model
 {
     internal class DataBase
     {
-        private static uint AccountID { get; set; }
-        private static uint ProductID { get; set; }
+        public uint AccountID { get; set; }
+        public uint ProductID { get; set; }
         public List<Account> Accounts { get; set; }
         public List<History> History { get; set; }
         public Dictionary<string, List<Product>> Categories { get; set; }
         public DataBase()
         {
+            AccountID = ProductID = 0;
             Accounts = new List<Account>();
-            CreateAccount("Pupa", "123456");
-            CreateAccount("Dupa", "654321");
-            CreateAccount("Lupa", "qwerty");
             Categories = new Dictionary<string, List<Product>>();
             Categories.Add("Electronics", new List<Product>
             {

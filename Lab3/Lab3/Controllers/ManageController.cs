@@ -10,36 +10,28 @@ namespace Lab3.Controllers
 {
     internal class ManageController
     {
+        private const string FileName = "C:\\Laba\\Project\\OOP\\Lab3\\Lab3\\Data\\Data.json";
         private Dictionary<string, List<ControllerInterface>> Controllers { get; set; }
         private Account User { get; set; }
         private DataBase Data { get; set; }
         public ManageController()
         {
-            Data = new DataBase();
+            Data = Serializer.Deserialize(FileName);
         }
         private void SignInUser()
         {
-            Console.WriteLine("Enter your name: ");
+            Console.WriteLine("Enter your name:");
             string name = Console.ReadLine();
-            Account account = Data.FindAccountByName(name);
-            if (account == null) throw new SignInException();
-            Console.WriteLine("Enter your password: ");
+            Console.WriteLine("Enter your password:");
             string password = Console.ReadLine();
-            if (!password.Equals(account.Password)) throw new SignInException();
+            Account account = Data.FindAccountByName(name);
+            if (account == null || !ComputeHash(password).Equals(account.Password)) throw new SignInException();
             User = account;
         }
-        private void RegisterUser()
+        private string ComputeHash(string password)
         {
-            string name;
-            Console.WriteLine("Enter your Name: ");
-            name = Console.ReadLine();
-            if (Data.FindAccountByName(name) != null) throw new RegisterException();
-            Console.WriteLine("Enter your Password: ");
-            string password = Console.ReadLine();
-            if (password.Equals("") || name.Equals("")) throw new ArgumentNullException();
-            User = Data.CreateAccount(name, password);
-            Data.Accounts.Add(User);
-        }
+            return new Hasher().CalculateHashCode(password);
+        }    
         private void Start() 
         {
             while (User == null)
@@ -49,43 +41,61 @@ namespace Lab3.Controllers
                 {
                     switch (Console.ReadLine())
                     {
-                        case "0": SignInUser(); break;
-                        case "1": RegisterUser(); break;
+                        case "0":SignInUser();break;
+                        case "1": new RegistrationController(Data).Action(); Console.WriteLine("Registration successful"); break;
                         default: throw new ArgumentOutOfRangeException();
                     }
                 }
                 catch (ArgumentOutOfRangeException) { Console.WriteLine("Please, enter correct index of action"); }
                 catch (ArgumentNullException) { Console.WriteLine("Please, enter not empty Name/password"); }
-                catch (SignInException) { Console.WriteLine("Your Name or Password is incorrect"); }
+                catch (SignInException) { Console.WriteLine("Incorrect Login or Password"); }
                 catch (RegisterException) { Console.WriteLine("This name has been taken"); }
             }
+
             ControllerInterface showProducts = new ShowProductsController(Data);
             ControllerInterface replenishAccount = new ReplenishAccountController(User);
             ControllerInterface accountHistory = new AccountHistoryController(Data, User);
             ControllerInterface buyProduct = new BuyProductController(Data, User);
-            ControllerInterface exit = new ExitController();
-
+            ControllerInterface returnToMainMenu = new ReturnController();
+            ControllerInterface exit = new ExitController(Data);
             Controllers = new Dictionary<string, List<ControllerInterface>>();
             Controllers.Add(showProducts.Message(), new List<ControllerInterface>
             {
                 buyProduct,
+                returnToMainMenu,
                 exit
             });
-            Controllers.Add(replenishAccount.Message(), new List<ControllerInterface> { exit });
+            Controllers.Add(replenishAccount.Message(), new List<ControllerInterface> 
+            {
+                returnToMainMenu,
+                exit
+            });
             Controllers.Add(buyProduct.Message(), new List<ControllerInterface>
             {
                 showProducts,
+                returnToMainMenu,
                 exit
             });
-            Controllers.Add(accountHistory.Message(), new List<ControllerInterface> { exit });
-            Controllers.Add(exit.Message(), new List<ControllerInterface>
+            Controllers.Add(accountHistory.Message(), new List<ControllerInterface> 
+            {
+                returnToMainMenu,
+                exit
+            });
+            Controllers.Add(returnToMainMenu.Message(), new List<ControllerInterface>
             {
                 showProducts,
                 replenishAccount,
-                accountHistory
+                accountHistory,
+                exit
             });
         }
-        private void Show(List<ControllerInterface> list) { for (int i = 0; i < list.Count; i++) { Console.WriteLine(i+") "+list[i].Message());} }
+        private void Show(List<ControllerInterface> list) 
+        { 
+            for (int i = 0; i < list.Count; i++) 
+            { 
+                Console.WriteLine(i+") "+list[i].Message());
+            } 
+        }
         private ControllerInterface Activate(List<ControllerInterface> list, int selected)
         {
             ControllerInterface controller = list.ElementAt(selected);
@@ -95,11 +105,11 @@ namespace Lab3.Controllers
         public void Run()
         {
             Start();
-            ControllerInterface controller = new ExitController();
+            ControllerInterface controller = new ReturnController();
             while (true)
             {
-                Console.WriteLine("Hello, {0} you have {1:0.00}$ on your balance.", User.Name,User.Balance);
                 do {
+                    Console.WriteLine("Hello, {0} you have {1:0.00}$ on your balance.", User.Name, User.Balance);
                     List<ControllerInterface> listOfController = Controllers[controller.Message()];
                     Show(listOfController);
                     try
