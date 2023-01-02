@@ -12,9 +12,9 @@ namespace Lab3
 {
     internal class Serializer
     {
-        public static void Serialize(string fileName, object o)
+        public static void Serialize(string fileName, object objectToSerialize)
         {
-            string jsonString = JsonSerializer.Serialize(o);
+            string jsonString = JsonSerializer.Serialize(objectToSerialize);
             File.WriteAllText(fileName, jsonString);
         }
         public static DataBase Deserialize(string fileName)

@@ -34,15 +34,18 @@ namespace Lab3.Controllers
         }    
         private void Start() 
         {
+            ControllerInterface exit = new ExitController(Data);
+            ControllerInterface register = new RegistrationController(Data);
             while (User == null)
             {
-                Console.WriteLine("0) Sign in Account\n1) Registration");
+                Console.WriteLine("0) Sign in Account\n" + "1) " + register.Message() + "\n2) " + exit.Message());
                 try
                 {
                     switch (Console.ReadLine())
                     {
-                        case "0":SignInUser();break;
+                        case "0": SignInUser();break;
                         case "1": new RegistrationController(Data).Action(); Console.WriteLine("Registration successful"); break;
+                        case "2": new ExitController(Data).Action(); break;
                         default: throw new ArgumentOutOfRangeException();
                     }
                 }
@@ -57,7 +60,6 @@ namespace Lab3.Controllers
             ControllerInterface accountHistory = new AccountHistoryController(Data, User);
             ControllerInterface buyProduct = new BuyProductController(Data, User);
             ControllerInterface returnToMainMenu = new ReturnController();
-            ControllerInterface exit = new ExitController(Data);
             Controllers = new Dictionary<string, List<ControllerInterface>>();
             Controllers.Add(showProducts.Message(), new List<ControllerInterface>
             {

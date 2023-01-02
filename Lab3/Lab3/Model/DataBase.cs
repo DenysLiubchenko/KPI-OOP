@@ -8,8 +8,8 @@ namespace Lab3.Model
 {
     internal class DataBase
     {
-        public uint AccountID { get; set; }
-        public uint ProductID { get; set; }
+        private uint AccountID { get; set; }
+        private uint ProductID { get; set; }
         public List<Account> Accounts { get; set; }
         public List<History> History { get; set; }
         public Dictionary<string, List<Product>> Categories { get; set; }
