@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using XSystem.Security.Cryptography;
 
 namespace Lab3
 {
     internal class Hasher
     {
-        public string CalculateHashCode(string sSourceData)
+        public string CalculateHashCode(string data)
         {
-            byte[] tmpSource;
-            byte[] tmpHash;
-            tmpSource = Encoding.ASCII.GetBytes(sSourceData);
-            tmpHash = new MD5CryptoServiceProvider().ComputeHash(tmpSource);
+            byte[] tmpData = Encoding.ASCII.GetBytes(data);
+            byte[] tmpHash = new MD5CryptoServiceProvider().ComputeHash(tmpData);
             return ByteArrayToString(tmpHash);
         }
-        private string ByteArrayToString(byte[] arrInput)
+        private string ByteArrayToString(byte[] input)
         {
-            int i;
-            StringBuilder sOutput = new StringBuilder(arrInput.Length);
-            for (i = 0; i < arrInput.Length - 1; i++)
+            StringBuilder output = new StringBuilder(input.Length);
+            for (int i = 0; i < input.Length - 1; i++)
             {
-                sOutput.Append(arrInput[i].ToString("X2"));
+                output.Append(input[i].ToString("X2"));
             }
-            return sOutput.ToString();
+            return output.ToString();
         }
     }
 }

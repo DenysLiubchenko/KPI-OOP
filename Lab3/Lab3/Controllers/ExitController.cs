@@ -14,7 +14,7 @@ namespace Lab3.Controllers
         public ExitController(DataBase data) { Data = data; }
         public void Action()
         {
-            Serializer.Serialize("C:\\Laba\\Project\\OOP\\Lab3\\Lab3\\Data\\Data.json", Data);
+            new Serializer().Serialize("C:\\Laba\\Project\\OOP\\Lab3\\Lab3\\Data\\Data.json", Data);
             Environment.Exit(0);
         }
     }

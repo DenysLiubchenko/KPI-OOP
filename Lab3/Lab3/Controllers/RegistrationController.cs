@@ -1,10 +1,5 @@
 ﻿using Lab3.Exeptions;
 using Lab3.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab3.Controllers
 {
@@ -15,9 +10,8 @@ namespace Lab3.Controllers
         public string Message() { return "Register Account"; }
         public void Action()
         {
-            string name;
             Console.WriteLine("Enter your Name: ");
-            name = Console.ReadLine();
+            string name = Console.ReadLine();
             if (Data.FindAccountByName(name) != null) throw new RegisterException();
             Console.WriteLine("Enter your Password: ");
             string password = Console.ReadLine();

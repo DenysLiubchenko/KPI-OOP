@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Lab3.Model;
+﻿using Lab3.Model;
 
 namespace Lab3.Controllers
 {

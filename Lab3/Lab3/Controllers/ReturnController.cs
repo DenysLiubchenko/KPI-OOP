@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lab3.Exeptions;
 
 namespace Lab3.Controllers
 {
@@ -11,6 +7,7 @@ namespace Lab3.Controllers
         public string Message() { return "Return to main menu"; }
         public void Action()
         {
+            throw new ReturnException();
         }
     }
 }

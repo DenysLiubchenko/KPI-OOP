@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lab3.Model
+﻿namespace Lab3.Model
 {
     internal class DataBase
     {
-        private uint AccountID { get; set; }
-        private uint ProductID { get; set; }
+        public uint AccountID { get; set; }
+        public uint ProductID { get; set; }
         public List<Account> Accounts { get; set; }
         public List<History> History { get; set; }
         public Dictionary<string, List<Product>> Categories { get; set; }

@@ -1,29 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Lab3.Model;
 
 namespace Lab3
 {
     internal class Serializer
     {
-        public static void Serialize(string fileName, object objectToSerialize)
+        public void Serialize(string fileName, object objectToSerialize)
         {
-            string jsonString = JsonSerializer.Serialize(objectToSerialize);
-            File.WriteAllText(fileName, jsonString);
+            File.WriteAllText(fileName, JsonSerializer.Serialize(objectToSerialize));
         }
-        public static DataBase Deserialize(string fileName)
+        public DataBase Deserialize(string fileName)
         {
             string jsonString = File.ReadAllText(fileName);
             try
             {
-                var tObject = JsonSerializer.Deserialize<DataBase>(jsonString);
-                return tObject;
+                return JsonSerializer.Deserialize<DataBase>(jsonString);
             }
             catch { return new DataBase(); }
         }

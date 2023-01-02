@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Lab3.Model;
+﻿using Lab3.Model;
 
 namespace Lab3.Controllers
 {
@@ -16,9 +11,9 @@ namespace Lab3.Controllers
         {
             int i = 0;
             foreach(string category in Data.Categories.Keys){
-                int j = 0;
                 Console.WriteLine(i++ + " " + category);
-                foreach(Product product in Data.Categories[category])
+                int j = 0;
+                foreach (Product product in Data.Categories[category])
                 {
                     Console.WriteLine("\t"+j++ + ") " + product.Name + " - " + product.Price + "$");
                 }

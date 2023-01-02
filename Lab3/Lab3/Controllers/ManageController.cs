@@ -1,10 +1,5 @@
 ﻿using Lab3.Exeptions;
 using Lab3.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab3.Controllers
 {
@@ -16,7 +11,7 @@ namespace Lab3.Controllers
         private DataBase Data { get; set; }
         public ManageController()
         {
-            Data = Serializer.Deserialize(FileName);
+            Data = new Serializer().Deserialize(FileName);
         }
         private void SignInUser()
         {
@@ -107,11 +102,11 @@ namespace Lab3.Controllers
         public void Run()
         {
             Start();
-            ControllerInterface controller = new ReturnController();
             while (true)
             {
-                do {
-                    Console.WriteLine("Hello, {0} you have {1:0.00}$ on your balance.", User.Name, User.Balance);
+                ControllerInterface controller = new ReturnController();
+                Console.WriteLine("Hello, {0} you have {1:0.00}$ on your balance.", User.Name, User.Balance);
+                while (true) {
                     List<ControllerInterface> listOfController = Controllers[controller.Message()];
                     Show(listOfController);
                     try
@@ -122,7 +117,8 @@ namespace Lab3.Controllers
                     catch (NotEnoughMoneyException) { Console.WriteLine("Not Enough Money on balance"); }
                     catch (NegativeBalanceException) { Console.WriteLine("Incorrect amount of money"); }
                     catch (FormatException) { Console.WriteLine("Not supported action"); }
-                } while (!controller.Message().Equals("Back to main menu"));
+                    catch (ReturnException) { break; }
+                }
             }
         }
     }
